@@ -4,7 +4,7 @@
 
 <mapper namespace="com.hancom.persistence.Board_DAO">
 
-    <insert id="saveBoard" >
+    <insert id="insertBoard" >
 		INSERT INTO TB_BOARD(
             TITLE
             , CONTENT
