@@ -26,9 +26,6 @@ public interface Board_DAO {
     //게시판 수정
     void updateBoard(HashMap<String, Object> conditionMap) throws Exception;
 
-    //게시판 최초 등록자 조회
-    String selectBoardWriter(HashMap<String, Object> conditionMap) throws Exception;
-
     //게시판 삭제
     void deleteBoard(HashMap<String, Object> conditionMap) throws Exception;
 }

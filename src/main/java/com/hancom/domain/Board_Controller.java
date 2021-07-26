@@ -7,12 +7,9 @@ import com.hancom.service.Board_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 @RestController
 @RequestMapping("/board")
 public class Board_Controller {
-
     @Autowired
     private Board_Service boardService;
 
@@ -39,5 +36,9 @@ public class Board_Controller {
     @DeleteMapping("/{idx}")
     public Response delete(@PathVariable int idx, @RequestParam String deleteId) throws Exception {
         return boardService.deleteBoard(idx, deleteId);
+    }
+    @RequestMapping("/test")
+    public String test(){
+    	return "test";
     }
 }

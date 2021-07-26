@@ -40,13 +40,13 @@ public class Board_Service {
         Response res = new Response();
         /* 조건 생성 */
         HashMap<String, Object> conditionMap = new HashMap<>();
-        conditionMap.put("pageNum" , pageNum);
-        conditionMap.put("listSize", listSize);
         HashMap<String, Object> returnMap = new HashMap<>();
         try{
             if(pageNum == 0){ // pageNum이 0 일 경우 게시물 전체 COUNT
                 returnMap.put("BoardCnt", boardDao.selectBoardAllCount());
             }else{
+            	conditionMap.put("startIdx" , (pageNum-1)*listSize);
+                conditionMap.put("listSize" , listSize);
                 returnMap.put("BoardTitleList", boardDao.selectBoardList(conditionMap));
             }
             res.setCode("0000");
@@ -89,7 +89,7 @@ public class Board_Service {
         conditionMap.put("content", board.getContent());
         conditionMap.put("writer" , board.getWriter());
         try{
-            String writer = boardDao.selectBoardWriter(conditionMap);
+            String writer = boardDao.selectBoardDetail(conditionMap).getWriter();
             if(board.getWriter().equals(writer)){ // 최초 등록자만 수정 가능
                 boardDao.updateBoard(conditionMap);
                 res.setCode("0000");
@@ -114,7 +114,7 @@ public class Board_Service {
         conditionMap.put("idx"     , idx);
         conditionMap.put("deleteId", deleteId);
         try {
-            String writer = boardDao.selectBoardWriter(conditionMap);
+            String writer = boardDao.selectBoardDetail(conditionMap).getWriter();
             if(deleteId.equals(writer)){ // 최초 등록자만 삭제 가능
                 boardDao.deleteBoard(conditionMap);
                 res.setCode("0000");
